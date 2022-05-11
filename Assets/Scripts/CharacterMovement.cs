@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
@@ -7,7 +8,11 @@ public class CharacterMovement : MonoBehaviour
 
     private Transform _player;
     [SerializeField] 
-    private float _distance = 1.5f;
+    private float _distance = 5f;
+
+    private float minValue = 2;
+    private float valueX;
+    private float valueZ;
     
     // Start is called before the first frame update
     void Start()
@@ -15,13 +20,37 @@ public class CharacterMovement : MonoBehaviour
         _player = Camera.main.transform;
     }
 
+   
+
     public void ChangePosition()
     {
+        valueX = Random.insideUnitSphere.x;
+        valueZ = Random.insideUnitSphere.z;
+        if (valueX* _distance<0)
+        {
+            valueX = valueX*_distance-minValue;
+        }
+        else
+        {
+            valueX = valueX*_distance+minValue;
+        }
+        
+        if (valueZ* _distance<0)
+        {
+            valueZ = valueZ*_distance-minValue;
+            
+        }
+        else
+        {
+            valueZ = valueZ*_distance+minValue;
+        }
+        
         transform.position = new Vector3(
-            Random.insideUnitSphere.x * _distance,
+            valueX ,
             transform.position.y,
-            Random.insideUnitSphere.z * _distance
+            valueZ 
         );
         transform.LookAt(_player);
+        
     }
 }

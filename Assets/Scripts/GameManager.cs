@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
         _score++;
         UpdateScore();
     }
+    
+    public void MinusScore()
+    {
+        _score--;
+        UpdateScore();
+    }
 
     // Update is called once per frame
     private void UpdateScore()
